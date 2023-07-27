@@ -17,6 +17,12 @@
     </properties>
 
     <dependencies>
+        <dependency>
+            <groupId>com.code-intelligence</groupId>
+            <artifactId>jazzer-junit</artifactId>
+            <version>0.19.0</version>
+            <scope>test</scope>
+        </dependency>
         <!-- Use JUnit Jupiter for testing. -->
         <dependency>
             <groupId>org.junit.jupiter</groupId>
@@ -33,6 +39,21 @@
     </dependencies>
 
     <profiles>
+        <profile>
+            <id>cifuzz</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.jacoco</groupId>
+                        <artifactId>jacoco-maven-plugin</artifactId>
+                        <configuration>
+                            <formats>${cifuzz.report.format}</formats>
+                            <outputDirectory>${cifuzz.report.output}</outputDirectory>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
     </profiles>
 
     <build>

@@ -16,6 +16,8 @@
 
 package com.example;
 
+import com.code_intelligence.jazzer.api.FuzzedDataProvider;
+import com.code_intelligence.jazzer.junit.FuzzTest;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -35,6 +37,12 @@ public class GreetEndpointTests {
   @Test
   public void unitTestHelloHacker() throws Exception {
     mockMvc.perform(get("/greet").param("name", "Contributor"));
+  }
+
+  @FuzzTest
+  public void fuzzTestGreet(FuzzedDataProvider data) throws Exception {
+    String name = data.consumeRemainingAsString();
+    mockMvc.perform(get("/greet").param("name", name));
   }
 
 }
